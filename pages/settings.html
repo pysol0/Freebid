@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/settings.css">
+    <title>Settings</title>
+</head>
+<body>
+    <header>
+        <img src="./assets/img/back.png" width=32 id="back_to_dashboard">
+        <div class="telgram_account">
+            <div class="simulated_img_profile">
+                <h1 id="img_profile_text" class="big_text"></h1>
+            </div>
+            <div class="telegram_info_box">
+                <h1 id="name" class="medium_text"></h1>
+                <p id="username" class="small_text"></p>
+            </div>
+            <img src="./assets/img/logout.png" width=40 id="logout_button">
+        </div>
+    </header>
+    <section id="telegram_settings_section">
+        <h1 class="big_text">Impostazioni Telegram</h1>
+        <div id="telegram_settings_wrapper">
+            <div id="settings_telegram">
+                <p class="medium_text" style="font-weight: 300;">Quanti messaggi devo controllare?</p>
+                <input type="range" id="settings_messages" min="1" max="99" step="1" />
+                <h1 id="message_count"></h1>
+            </div>
+            <div id="channels_section">
+                <p class="medium_text" style="font-weight: 300;">Seleziona i canali dai quali vuoi che vengano estratti i link:</p>
+                <div id="channels_list">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script type="module" src="./renderers/settingsrenderer.js"></script>
+</body>
+</html>

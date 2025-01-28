@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <script
+        src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+        type="module"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div class="settings_box">
+        <img width= 40 src="./assets/img/settings.png" id="settings_icon">
+    </div>
+    <div class="page_organizer">
+        <div class="first_column">
+            <div class="bidoo_accounts_list"></div>
+            <button id="add_bidoo_account">ADD ACCOUNT</button>
+        </div>
+        <div class="second_column">
+            <div class="first_row stats_div">
+                <p class="small_text">Puntate raccolte</p>
+                <h1 class="big_text" id="total_redeemed"></h1>
+                <div id="chart_div"></div>
+            </div>
+            <div class="second_row redeem_container">
+                <button id="redeem_bids"></button>
+                <img src="./assets/img/main_logo.svg">
+            </div>
+        </div>
+        <div class="third_column">
+            <div class="first_row" style="position: relative;">
+                <div class="bidoo_link_box">
+                    <form id="specific_link_form">
+                        <input type="text" class="link_input" id="specific_bidoo_link" placeholder="Inserisci link puntata:">
+                    </form>
+                    <img width="24" height="24" src="./assets/img/down_arrow.png" id="specific_link_btn" />
+                </div>
+                <textarea disabled id="specific_bidoo_link_list"></textarea>
+                <div class="specific_collect">
+                    <button id="specific_collect">
+                        <img width="24" height="24" src="./assets/img/cart_collect.png">
+                    </button>
+                </div>
+                
+            </div>
+            <div class="second_row automate_container">
+                <div class="slider_box" style="margin-top: 30px;">
+                    <p class="medium_text">Intervallo di tempo tra ogni ciclo:</p>
+                    <input type="range" id="automate_time_range" min="0" max="7" value="0" step="1" />
+                </div>
+                <div class="slider_box">
+                    <p class="medium_text">Messaggi da estrapolare:</p>
+                    <input type="range" id="automate_messages" min="1" max="99" value="20" step="1" />
+                </div>
+                <div class="automate_legend">
+                    <div class="automate_legend_child">
+                        <img width="60" src="./assets/img/time-range.png">
+                        <p class="small_text" id="time_rage_text">30 minuti</p>
+                    </div>
+                    <div class="automate_legend_child">
+                        <img width="60" src="./assets/img/messages.png">
+                        <p class="small_text" id="messages_number_text">20 messaggi</p>
+                    </div>
+                </div>
+                <button id="automate_button">START</button>
+            </div>
+        </div>
+    </div> 
+    <div class="card">
+        <svg class="wave" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+            <path
+            d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
+            fill-opacity="1"
+            ></path>
+        </svg>
+
+        <div class="icon-container">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            stroke-width="0"
+            fill="currentColor"
+            stroke="currentColor"
+            class="icon"
+            >
+            <path
+                d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"
+            ></path>
+            </svg>
+        </div>
+        <div class="message-text-container">
+            <p class="message-text">Success message</p>
+            <p class="sub-text">Everything seems great</p>
+        </div>
+    </div>
+    <div class="widget_background">
+        <div class="bidoo_account_inspect_widget">
+            <div class="x_container">
+                <p class="x_icon">×</p>
+            </div>
+            <div style="position: relative;margin-top: 2.5%;">
+                <label class="inspect_label" for="username">username:</label>
+                <input type="text" name="username" id="inspect_username">
+            </div>
+            <div style="position: relative;">
+                <label class="inspect_label" for="dess">dess:</label>
+                <input type="text" name="dess" id="inspect_dess" disabled>
+            </div>
+            <div class="bids_chart"></div>
+            <div class="save_delete_container">
+                <button class="destructive_button" id="remove_bidoo_account"><b>RIMUOVI ACCOUNT</b></button>
+                <button class="save_button" id="save_bidoo_account"><b>SALVA</b></button>
+            </div>
+        </div>
+    </div>
+    <div class="widget_background" style="align-items: center" id="loading_screen">
+        <dotlottie-player
+            src="https://lottie.host/ac3c2f04-cbd9-4496-98d7-af5a35d183f3/L0FkwgAiNm.lottie"
+            background="transparent"
+            speed="1"
+            style="width: 180px; height: 180px"
+            loop
+            autoplay
+        ></dotlottie-player>
+    </div>
+    <div class="widget_background" style="align-items: center;" id="automate_screen">
+        <dotlottie-player
+            src="https://lottie.host/ac3c2f04-cbd9-4496-98d7-af5a35d183f3/L0FkwgAiNm.lottie"
+            background="transparent"
+            speed="1"
+            style="width: 180px; height: 180px"
+            loop
+            autoplay
+            id="automate_loading_gif"
+        ></dotlottie-player>
+        <div id="automate_waiting">
+            <div>
+                <h1 class="big_text" id="seconds_for_next_cycle">990</h1>
+                <p class="small_text">secondi alla prossima raccolta</p>
+            </div>
+            <div class="destructive_button" id="stop_automation">STOP</div>
+        </div>
+    </div>
+
+    <div class="widget_background" style="align-items: center;" id="no_logged_alert">
+        <div class="no_logged_widget">
+            <p class="small_text" style="font-size: 14px;">I seguenti account sono stati rimossi poichè il login non risultava più valido:</p>
+            <div id="no_logged_list">
+            </div>
+            <button class="save_button" style="width: 100%;padding-top: 5px; padding-bottom: 5px;" id="no_logged_button">OK!</button>
+        </div>
+    </div>
+    
+    <script type="module" src="./renderers/dashboardrenderer.js"></script>
+</body>
+</html>

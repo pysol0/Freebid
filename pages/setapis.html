@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/setapis.css">
+    <title>Set apis</title>
+</head>
+<body>
+    <div class="apis_box">
+        <h1 class="big_text">Chiavi api errate!</h1>
+        <form id="apis_form">
+            <label class="medium_text" for="api_id">Inserisci il tuo api id:</label>
+            <input type="text" required id="api_id" name="api_id"  placeholder="Api id">
+            <label class="medium_text" for="api_hash">Inserisci il tuo api hash:</label>
+            <input type="text" required id="api_hash" name="api_hash" placeholder="Api hash">
+            <input type="submit">
+        </form>
+        <p class="medium_text">Puoi ottenere questi valori <a target="_blank" href="https://my.telegram.org/auth">qui</a></p>
+    </div>
+    <script>
+        document.getElementById("apis_form").addEventListener("submit",(e)=>{
+            e.preventDefault()
+            const api_id = document.getElementById("api_id").value 
+            const api_hash = document.getElementById("api_hash").value 
+            window.telegram.setApis(api_id,api_hash)
+        })
+    </script>
+</body>
+</html>

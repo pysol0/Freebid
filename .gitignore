@@ -1,0 +1,7 @@
+dist
+chrome
+_td_files
+_td_database
+node_modules
+data/*
+!data/user.json

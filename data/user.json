@@ -1,0 +1,13 @@
+{
+  "bidoo_accounts": [],
+  "daily_bids_updates": {},
+  "settings": {
+    "bids": {
+      "telegram_channels": [],
+      "messages": 20
+    }
+  },
+  "last_redeemed_bid": null,
+  "apiId": null,
+  "apiHash": null
+}

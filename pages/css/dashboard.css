@@ -1,0 +1,659 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Quicksand:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    background-color: white;
+    border-radius: 15px;
+    width: 300px;
+    padding: 0.7em;
+    outline: none;
+    border: none;
+    border: 1px solid #D8E0E5;
+}
+
+input:focus{
+    outline: none;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(238,174,202);
+    background: white;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.page_organizer{
+    display: flex;
+    columns: 3;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    gap:5px
+}
+
+.first_column{
+    width: 27%;
+    height: 96%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.second_column{
+    width: 27%;
+    height: 96%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.first_row{
+    background-color: white;
+    border-radius: 8px;
+    width: 100%;
+    height: 40%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.second_row{
+    background-color: white;
+    border-radius: 8px;
+    width: 100%;
+    height: 60%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.third_column{
+    width: 43%;
+    height: 96%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.bidoo_accounts_list{
+    height: 95%;
+    background-color: transparent;
+    width: 90%;
+    overflow-y: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#add_bidoo_account{
+    color: #34CC98;
+    font-weight: bold;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#add_bidoo_account:hover{
+    cursor: pointer;
+}
+
+.bidoo_account_widget{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.big_text{
+    font-size: 28px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 400
+}
+
+.medium_text{
+    font-size: 14px;
+    font-family: "Titillium Web", sans-serif;
+}
+
+.small_text{
+    opacity: 0.8;
+    font-size: 12px;
+    padding-top: 2px;
+    font-family: "Titillium Web", sans-serif;
+}
+
+.card {
+    width: 330px;
+    height: 80px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 15px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 25px;
+    margin-right: 20px;
+    transform: translateX(130%);
+}
+
+.show_notification{
+    animation: notification 10s ease-in-out;
+}
+
+@keyframes notification {
+    0% { transform: translateX(130%); }
+    15% { transform: translateX(0%); }
+    85% { transform: translateX(0%); }
+    100% { transform: translateX(130%); }
+}
+
+.wave {
+    position: absolute;
+    transform: rotate(90deg);
+    left: -31px;
+    top: 32px;
+    width: 80px;
+    fill: #04e4003a;
+}
+
+.icon-container {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #04e40048;
+    border-radius: 50%;
+    margin-left: 8px;
+}
+
+.icon {
+    width: 17px;
+    height: 17px;
+    color: #269b24;
+}   
+
+.message-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.message-text,
+.sub-text {
+    margin: 0;
+    cursor: default;
+    font-family: "Titillium Web", sans-serif;
+}
+
+.message-text {
+    color: #269b24;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.sub-text {
+    font-size: 14px;
+    color: #555;
+}
+
+.widget_background{
+    position: absolute;
+    background-color: #0008;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: end;
+    z-index: 2;
+}
+
+.bidoo_account_inspect_widget{
+    width: 55%;
+    height: 35%;
+    background-color: white;
+    border-radius: 8px 8px 0px 0px;
+    animation: inspect_widget 1s ease-in-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15%;
+}
+
+@keyframes inspect_widget {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0%); }
+}
+
+.x_icon{
+    font-size: 20px;
+    -webkit-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none;
+    transform: translateY(-0.4em);
+}
+
+.x_container:hover{
+    cursor: pointer;
+}
+
+.x_container{
+    aspect-ratio: 1/1;
+    height: 10px;
+    position: absolute;
+    right: 0;
+    margin-right: 2%;
+    margin-top: 2%;
+    z-index: 1;
+}
+
+.save_delete_container{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    gap: 2%;
+    justify-content: center;
+    padding-bottom: 1%;
+}
+
+.destructive_button, .save_button{
+    width: 47%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.save_button{
+    border: none;
+    outline: none;
+    background-color: #34CC98;
+    color: white;
+}
+
+.save_button:hover, .destructive_button:hover{
+    cursor: pointer;
+}
+
+.destructive_button{
+    color: #FF3130;
+    border: 2px solid #FF3130;
+    background-color: transparent;
+}
+
+#inspect_dess{
+    background-color: #D8E0E5;
+    margin-left: 2%;
+    height: 70%;
+    font-family: "Titillium Web", sans-serif;
+}
+
+#inspect_username{
+    margin-left: 2%;
+    height: 70%;
+    font-family: "Titillium Web", sans-serif;
+}
+
+.inspect_label{ 
+    position: absolute;
+    font-size: 12px;
+    transform: translateY(-0.6em);
+    margin-left: 5.5%;
+    background-color: white;
+    border-radius: 6px;
+    width: 12%;
+    text-align: center;
+    font-family: "Titillium Web", sans-serif;
+}
+
+.underline_hover:hover{
+    text-decoration: underline;
+}
+
+.bids_count{
+    font-family: "Titillium Web", sans-serif;
+    font-size: 14px;
+}
+
+.redeem_container{
+    box-shadow: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.redeem_container img{
+    position: absolute;
+    pointer-events: none;
+}
+
+#redeem_bids{
+    position: relative;
+    height: 45%;
+    aspect-ratio : 1 / 1;
+    border:none;
+    font-size: 40px;
+    color:black;
+    border-radius: 50%;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    animation: redeem_effect 5s infinite ease-in;
+}
+
+#redeem_bids:hover{
+    cursor: pointer;
+}
+
+#redeem_bids::before{
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    height: 100%;
+    padding: 3px;
+    width: 100%;
+    z-index: -1;
+    border-radius: 50%;
+    background-image: linear-gradient(45deg, #0391CA, #34CC98);        
+    transition: all 0.3s ease-in-out;
+    animation: after_redeem_effect 5s infinite ease-in;
+    opacity: 0%; 
+}
+
+@keyframes after_redeem_effect{
+    0%{opacity: 0%;} 
+    15%{opacity: 100%;} 
+    100%{opacity: 0%;}
+}
+
+@keyframes redeem_effect{
+    0%{height: 45%;} 
+    15%{height: 45%;} 
+    100%{height: 55%;}
+}
+
+#chart_div{
+    padding-right: 3.5%;
+}
+
+.first_row p{
+    opacity: 0.45;
+    margin-left: 3.5%;
+}
+
+.first_row h1{
+    margin-left: 3.5%;
+}
+
+.stats_div{
+    padding-top: 2px;
+}
+
+.link_input{
+    all: unset;
+    border-bottom: 2px solid #34CC98;
+    background-color: #00000010;
+    border-radius: 5px 5px 0px 0px; 
+    width: 100%;
+    padding: 5px;
+    font-family:"Titillium Web", sans-serif; 
+}
+
+.bidoo_link_box{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    height: calc(20%-10px);
+}
+
+.bidoo_link_box form{
+    width: 100%;
+    padding-right: 10px;
+}
+
+.bidoo_link_box img{
+    cursor: pointer;
+}
+
+textarea{
+    all: initial;
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 30px);
+    background-color: transparent;
+    border: 1.5px solid #00000010;
+    border-radius: 5px;
+    height: 65%;
+    margin-bottom: 10px;
+    padding: 5px;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 0%);
+}
+
+.specific_collect{
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    background-color: #FFFFFF;
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.specific_collect button{
+    border: none;
+    outline: none;
+    background-color: #34CC98;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s linear;
+}
+
+.specific_collect button:hover{
+    scale: 1.1;
+    box-shadow: #34CC98 0px 0px 8px;
+}
+
+#automate_button{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #FFFFFF;
+    background-color: #34CC98;
+    width: 25%;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: 14px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+input[type=range]{
+    all: unset;
+    width: 90%;
+}
+
+input[type=range] {
+    -webkit-appearance: none; 
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #34CC98;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 8px;
+    cursor: pointer;
+    margin-top: -5.5px;
+    transition: all 0.15s linear;
+}
+
+input[type=range]::-webkit-slider-runnable-track{
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    background: linear-gradient(to right, #34CC9820, #34CC98);
+    border-radius: 5px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #34CC9820, #34CC98);
+}
+
+input[type=range]::-webkit-slider-thumb:hover{
+    scale: 1.1;
+}
+
+.automate_container{
+    position: relative; 
+    z-index: 0; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 30px;
+}
+
+.slider_box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 10%;
+}
+
+.automate_legend{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 90%;
+    height: calc(100% - 240px);
+}
+
+.automate_legend div{
+    display: flex;
+    width: 50%;
+    gap: 5px;
+    align-items: center;
+}
+
+#automate_waiting{
+    display: none;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+#stop_automation{
+    width: 15%;
+    color: #FFFFFF;
+    background-color: #ff0000;
+    width: 60%;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    padding: 5px;
+    cursor: pointer;
+    font-family:"Titillium Web", sans-serif; 
+}
+
+#automate_waiting div{
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+}
+
+#automate_waiting p{
+    color: #FFFFFF;
+    opacity: 0.8;
+}
+
+#automate_waiting h1{
+    color: #FFFFFF;
+    font-size: 48px;
+}
+
+#settings_icon {
+    cursor: pointer;
+    translate: -5% 0%;
+}
+
+.settings_box {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 15px;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #34CC98;
+    translate: 20% 10%;
+}
+
+.no_logged_widget{
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#no_logged_list{
+    height: 200px;
+    width: 100%;
+    background-color: #00000020;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    border-radius: 5px;
+}

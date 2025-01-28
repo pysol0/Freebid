@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Quicksand:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+:root {
+    --text-gradient:10%;
+  }
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.big_text{
+    font-size: 36px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 400
+}
+
+.medium_text{
+    font-size: 16px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 700;
+}
+
+.small_text{
+    opacity: 0.6;
+    font-size: 14px;
+    font-family: "Titillium Web", sans-serif;
+}
+
+.simulated_img_profile{
+    border-radius: 50%;
+    background-color: #1FA0E2;
+    aspect-ratio: 1/1;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.telgram_account {
+    display: flex;
+    max-width: 100%;
+    padding: 10px;
+    gap: 18px;
+    align-items: center;
+}
+
+.telegram_info_box{
+    width: 83%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+}
+
+#logout_button{
+    cursor: pointer;
+}
+
+#back_to_dashboard {
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.chat_item{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.text_selected{
+    font-weight: 700;
+    opacity: 1;
+    background-color: #00000020;
+    border-radius: 10px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.channel_selected::before{
+    content: url("../assets/img/selected.png");
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-color: #00000080;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.channel_img_wrapper{
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    height: 40px;
+    width: 40px;
+}
+
+#channels_list{
+    height: 49vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    width: calc(100% - 20px);
+}
+
+.icon_letter{
+    color: white;
+    font-weight: 700;
+    position: absolute;
+    font-family: "Titillium Web", sans-serif;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+#telegram_settings_section {
+    padding: 10px;
+}
+
+input[type=range]{
+    all: unset;
+    width: calc(100% - 10px);
+}
+
+input[type=range] {
+    -webkit-appearance: none; 
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #34CC98;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 8px;
+    cursor: pointer;
+    margin-top: -5.5px;
+    transition: all 0.15s linear;
+}
+
+input[type=range]::-webkit-slider-runnable-track{
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    background: linear-gradient(to right, #34CC9820, #34CC98);
+    border-radius: 5px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #34CC9820, #34CC98);
+}
+
+input[type=range]::-webkit-slider-thumb:hover{
+    scale: 1.1;
+}
+
+#telegram_settings_wrapper{
+    display: flex;
+    width: 100%;
+}
+
+#settings_telegram, #channels_section{
+    position: relative;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    gap: 15px;
+}
+
+#message_count{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    font-size: 90px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 600;
+    background: linear-gradient(90deg,#34CC98 var(--text-gradient),black 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 3s linear;
+}
