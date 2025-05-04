@@ -2,6 +2,9 @@
 ## About
 Freebid is a software born in 2022, its sole and main purpose is to automate the process of collecting bids on the popular bidoo.com auction site. I specify that there is no connection between the business of freebid and that of bidoo. I decided to release this latest version open source and free for all, which saves user data only locally, with updated functionality, and available for all major operating systems. If you find the project interesting and useful, don't forget to leave a star ⭐.
 ## Installation 
+### Important
+If you will not be using the portable version of the software you should know that among the dependencies of freebid is node-gyp which requires some prerequisites to be installed properly, you can find all the useful information [here](https://github.com/nodejs/node-gyp).
+Also if you get any errors when starting the program I recommend removing spaces from any folder names included in the program directory.
 ### Windows (tested)
 On Windows you can use a portable version that is packaged as an archive (easiest way):
 - link to archive
@@ -30,3 +33,5 @@ You can now start exploring all the features of Freebid.
 
 ## Further information
 Freebid is now completely open source, which implies that if you have any changes, improvements or bug fixes to propose they are greatly appreciated. If you have a problem you can report it in the issues and I along with the community will try to help you. Enjoy using Freebid!
+
+Icons and animations by [Icons8](https://icons8.com/) and [LottieFiles](https://lottiefiles.com/free-animations/free).
