@@ -10,4 +10,5 @@
   "last_redeemed_bid": null,
   "apiId": null,
   "apiHash": null
+  "await_mode": true
 }

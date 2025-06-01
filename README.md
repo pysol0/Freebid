@@ -13,6 +13,7 @@ Or clone the repository and launch the program with following commands:
 - `git clone pysol0/Freebid`
 - `npm install`
 - `npm run start`
+You will also need a chrome installation, and to add its path in variable `main.js` -> `const chrome_path = ""` 
 
 ### MacOS (tested)
 On MacOS you can only clone the repository and run the same commands that you would run on Windows

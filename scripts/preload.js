@@ -10,6 +10,9 @@ contextBridge.exposeInMainWorld('bidoo', {
   remove_account: async(username) => {return await ipcRenderer.invoke('remove_bidoo_account',username)},
   update_account: async(username,new_username) => {return await ipcRenderer.invoke('update_bidoo_account',username,new_username)},
   redeem_bids: async(specific_promocodes, specific_messages) => {return await ipcRenderer.invoke('redeem_bids',specific_promocodes, specific_messages)},
+  handleChannel: (id,action) => {return ipcRenderer.invoke('handle_channel',id,action)},
+  setRedeemMode: () => {return ipcRenderer.invoke('handle_set_redeem_mode')},
+  getRedeemMode: () => {return ipcRenderer.invoke('handle_get_redeem_mode')}
 })
 
 contextBridge.exposeInMainWorld('route', {

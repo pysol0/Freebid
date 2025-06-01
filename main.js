@@ -7,6 +7,8 @@ const axios = require('axios');
 const { getTdjson } = require('prebuilt-tdlib')
 const build = false
 const jsonData = require(build ? process.resourcesPath + "/app/data/user.json" : "./data/user.json")
+const chrome_path = ""
+
 function get_url_from_message(message) {
     try {
         return message.content.text.entities.filter((entity)=>entity.type._ == "textEntityTypeTextUrl")[0].type.url
@@ -201,7 +203,7 @@ app.whenReady().then(async () => {
 
     ipcMain.handle('add_bidoo_account', async() => {
         
-        const browser = await puppeteer.launch({headless: false, executablePath: build ?  process.resourcesPath +  "/app/chrome/win64-132.0.6834.110/chrome-win64/chrome.exe" : "./chrome/win64-132.0.6834.110/chrome-win64/chrome.exe"});
+        const browser = await puppeteer.launch({headless: false, executablePath: build ?  process.resourcesPath +  "/app/chrome/win64-132.0.6834.110/chrome-win64/chrome.exe" : chrome_path});
         const page = await browser.newPage();
         await page.goto('https://it.bidoo.com/login_push.php');
 
@@ -262,101 +264,122 @@ app.whenReady().then(async () => {
             return jsonData.bidoo_accounts
         }
 
-        var requests_list = []
-        const user_index = new Map()
-        for (let index = 0; index < jsonData.bidoo_accounts.length; index++) {
-            user_index.set(jsonData["bidoo_accounts"][index]["username"],index)
-        }
-        var i = 0
-        const initial_funds = new Map()
-        const bids_updates = new Map()
-
-        await Promise.all(jsonData.bidoo_accounts.map(async user=>{
-            const domainUrl = user.domain === "es" ? "https://es.bidoo.com" : "https://it.bidoo.com";
-            const request = await axios.request({method:"GET",
-                cache:false,
-                headers:{
-                    "Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",
-                    "Pragma":"no-cache",
-                    "Cookie": "dess=" + user.dess + ";" 
-                },
-                url:`${domainUrl}/get_user_details.php`,
-            })
-            initial_funds.set(user_index.get(user.username), request.data.user.funds)
-        }))
-
-        for (var user of jsonData.bidoo_accounts) {
-            const domainUrl = user.domain === "es" ? "https://es.bidoo.com" : "https://it.bidoo.com";
-            promocodes.forEach((value,key) => {
-                const request = axios.request({method:"GET",
+        if (jsonData.await_mode) {
+            var requests_list = []
+            const user_index = new Map()
+            for (let index = 0; index < jsonData.bidoo_accounts.length; index++) {
+                user_index.set(jsonData["bidoo_accounts"][index]["username"],index)
+            }
+            var i = 0
+            const initial_funds = new Map()
+            const bids_updates = new Map()
+    
+            await Promise.all(jsonData.bidoo_accounts.map(async user=>{
+                const domainUrl = user.domain === "es" ? "https://es.bidoo.com" : "https://it.bidoo.com";
+                const request = await axios.request({method:"GET",
                     cache:false,
                     headers:{
                         "Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",
                         "Pragma":"no-cache",
-                        "Cookie": "dess=" + user.dess + ";" + "user=" + i
+                        "Cookie": "dess=" + user.dess + ";" 
                     },
-                    url:`${domainUrl}/push_promotions.php?code=` + value,
-                }).then(response => {
-                    try {
-                        if (response.data.split("-")[0] == "ok") {
-                            if (bids_updates.has(response.config.headers.Cookie.split(";")[1].split("=")[1])) {
-                                if (parseInt(response.data.split("-")[1])>bids_updates.get(response.config.headers.Cookie.split(";")[1].split("=")[1])) {
+                    url:`${domainUrl}/get_user_details.php`,
+                })
+                initial_funds.set(user_index.get(user.username), request.data.user.funds)
+            }))
+    
+            for (var user of jsonData.bidoo_accounts) {
+                const domainUrl = user.domain === "es" ? "https://es.bidoo.com" : "https://it.bidoo.com";
+                promocodes.forEach((value,key) => {
+                    const request = axios.request({method:"GET",
+                        cache:false,
+                        headers:{
+                            "Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",
+                            "Pragma":"no-cache",
+                            "Cookie": "dess=" + user.dess + ";" + "user=" + i
+                        },
+                        url:`${domainUrl}/push_promotions.php?code=` + value,
+                    }).then(response => {
+                        try {
+                            if (response.data.split("-")[0] == "ok") {
+                                if (bids_updates.has(response.config.headers.Cookie.split(";")[1].split("=")[1])) {
+                                    if (parseInt(response.data.split("-")[1])>bids_updates.get(response.config.headers.Cookie.split(";")[1].split("=")[1])) {
+                                        bids_updates.set(response.config.headers.Cookie.split(";")[1].split("=")[1], parseInt(response.data.split("-")[1]))
+                                    }
+                                }else{
                                     bids_updates.set(response.config.headers.Cookie.split(";")[1].split("=")[1], parseInt(response.data.split("-")[1]))
                                 }
-                            }else{
-                                bids_updates.set(response.config.headers.Cookie.split(";")[1].split("=")[1], parseInt(response.data.split("-")[1]))
-                            }
-                            return
-                        } 
-                    } catch (error) {
-                        return error
-                    }
-                }).catch(error => {
-                    console.error('Errore GET:', error);
-                })
-                requests_list.push(request)
-            });
-            i++
-        }
-        
-        await Promise.all(requests_list).then(response => {
-            bids_updates.forEach((value,key)=>{
-                jsonData.bidoo_accounts[parseInt(key)].bids_count=value
-            })
-            if (!specific_promocodes) {
-                jsonData.last_redeemed_bid = [...promocodes.keys()][promocodes.size-1]
-            }
-            const now = Math.trunc(Date.now()/1000)
-            var total_redeemed_bids = 0
-            const data_locale = (new Date()).toLocaleDateString()
-            var i = 0
-            for (const user of jsonData.bidoo_accounts) {
-                if (initial_funds.get(i)) {
-                    total_redeemed_bids += user.bids_count - initial_funds.get(i)
-                    if (bids_updates.size != 0) {
-                        user.bids_history[now]=user.bids_count - initial_funds.get(i)
-                    }
-                }
+                                return
+                            } 
+                        } catch (error) {
+                            return error
+                        }
+                    }).catch(error => {
+                        console.error('Errore GET:', error);
+                    })
+                    requests_list.push(request)
+                });
                 i++
             }
             
-            if (jsonData.daily_bids_updates[data_locale]) {
-                jsonData.daily_bids_updates[data_locale] += total_redeemed_bids
-            } else {
-                jsonData.daily_bids_updates[data_locale] = total_redeemed_bids
+            await Promise.all(requests_list).then(response => {
+                bids_updates.forEach((value,key)=>{
+                    jsonData.bidoo_accounts[parseInt(key)].bids_count=value
+                })
+                if (!specific_promocodes) {
+                    jsonData.last_redeemed_bid = [...promocodes.keys()][promocodes.size-1]
+                }
+                const now = Math.trunc(Date.now()/1000)
+                var total_redeemed_bids = 0
+                const data_locale = (new Date()).toLocaleDateString()
+                var i = 0
+                for (const user of jsonData.bidoo_accounts) {
+                    if (initial_funds.get(i)) {
+                        total_redeemed_bids += user.bids_count - initial_funds.get(i)
+                        if (bids_updates.size != 0) {
+                            user.bids_history[now]=user.bids_count - initial_funds.get(i)
+                        }
+                    }
+                    i++
+                }
+                
+                if (jsonData.daily_bids_updates[data_locale]) {
+                    jsonData.daily_bids_updates[data_locale] += total_redeemed_bids
+                } else {
+                    jsonData.daily_bids_updates[data_locale] = total_redeemed_bids
+                }
+                
+                fs.writeFileSync(build ? process.resourcesPath + "/app/data/user.json" : "./data/user.json", JSON.stringify(jsonData, null, 2))
+                
+            })
+            
+            .catch(error => {
+                console.error('Errore GET:', error);
+            })   
+            .catch(error => {
+                console.error('Errore GET:', error);
+            })   
+            return jsonData.bidoo_accounts
+        }else{
+            for (var user of jsonData.bidoo_accounts) {
+                const domainUrl = user.domain === "es" ? "https://es.bidoo.com" : "https://it.bidoo.com";
+                promocodes.forEach((value,key) => {
+                    axios.get(`${domainUrl}/push_promotions.php?code=` + value,{
+                        cache:false,
+                        headers:{
+                            "Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",
+                            "Pragma":"no-cache",
+                            "Cookie": "dess=" + user.dess + ";" + "user=" + i
+                        }
+                    }) 
+                })
             }
-            
-            fs.writeFileSync(build ? process.resourcesPath + "/app/data/user.json" : "./data/user.json", JSON.stringify(jsonData, null, 2))
-            
-        })
-        
-        .catch(error => {
-            console.error('Errore GET:', error);
-        })   
-        .catch(error => {
-            console.error('Errore GET:', error);
-        })   
-        return jsonData.bidoo_accounts
+            if (!specific_promocodes) {
+                jsonData.last_redeemed_bid = [...promocodes.keys()][promocodes.size-1]
+            }
+            return jsonData.bidoo_accounts
+        }
+
     })
 
     ipcMain.handle('get_settings',()=>win.loadFile("pages/settings.html"))
@@ -439,6 +462,16 @@ app.whenReady().then(async () => {
         fs.writeFileSync(build ? process.resourcesPath + "/app/data/user.json" : "./data/user.json", JSON.stringify(jsonData, null, 2));
     })
 
+    ipcMain.handle('handle_get_redeem_mode',(e)=>{
+        const jsonData = require(build ? process.resourcesPath + "/app/data/user.json" : "./data/user.json")
+        return jsonData.await_mode
+    })
+
+    ipcMain.handle('handle_set_redeem_mode',(e)=>{
+        const jsonData = require(build ? process.resourcesPath + "/app/data/user.json" : "./data/user.json")
+        jsonData.await_mode = !jsonData.await_mode  
+        fs.writeFileSync(build ? process.resourcesPath + "/app/data/user.json" : "./data/user.json", JSON.stringify(jsonData, null, 2));
+    })
 
     var win = null
 

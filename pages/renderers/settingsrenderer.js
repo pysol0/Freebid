@@ -15,6 +15,17 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     document.getElementById("name").innerText = user.name
     document.getElementById("username").innerText = "@"+user.username
     document.getElementById("img_profile_text").innerText = user.name.slice(0,1).toUpperCase() 
+    window.bidoo.getRedeemMode().then(await_mode => {
+        if (await_mode) {
+            document.getElementById("redeem_mode").classList.add("redeem_mode_checked")
+        }else{
+            document.getElementById("redeem_mode").classList.remove("redeem_mode_checked")
+        }
+    })
+    document.getElementById("redeem_mode").addEventListener("click",()=>{
+        window.bidoo.setRedeemMode()
+        document.getElementById("redeem_mode").classList.toggle("redeem_mode_checked")
+    })
 })
 
 document.getElementById("logout_button").addEventListener("click",async()=>{
