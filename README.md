@@ -1,4 +1,7 @@
 # Freebid
+
+Puoi leggere questo readme anche in [italiano](https://github.com/pysol0/Freebid/blob/main/README-it.md).
+
 ## About
 Freebid is a software born in 2022, its sole and main purpose is to automate the process of collecting bids on the popular bidoo.com auction site. I specify that there is no connection between the business of freebid and that of bidoo. I decided to release this latest version open source and free for all, which saves user data only locally, with updated functionality, and available for all major operating systems. If you find the project interesting and useful, don't forget to leave a star ⭐.
 ## Installation 
@@ -7,7 +10,7 @@ If you will not be using the portable version of the software you should know th
 Also if you get any errors when starting the program I recommend removing spaces from any folder names included in the program directory.
 ### Windows (tested)
 On Windows you can use a portable version that is packaged as an archive (easiest way):
-- link to archive
+- [archive](https://github.com/pysol0/Freebid/releases)
 
 Or clone the repository and launch the program with following commands:
 - `git clone pysol0/Freebid`
